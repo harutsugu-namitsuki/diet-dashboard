@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, ReferenceLine } from 'recharts';
-import { Target, TrendingDown, Calendar, Flame, Activity } from 'lucide-react';
+import { Target, TrendingDown, Calendar, Flame, Activity, Trash2 } from 'lucide-react';
 import './index.css';
 
 // Constants based on the plan
@@ -68,6 +68,14 @@ function App() {
     setRecords(updated);
     localStorage.setItem('diet_records', JSON.stringify(updated));
     setWeightInput('');
+  };
+
+  const handleDelete = (dateToDelete) => {
+    if (window.confirm(`${dateToDelete} の記録を削除してもよろしいですか？`)) {
+      const updated = records.filter(r => r.date !== dateToDelete).sort((a,b) => new Date(a.date) - new Date(b.date));
+      setRecords(updated);
+      localStorage.setItem('diet_records', JSON.stringify(updated));
+    }
   };
 
   // Calculations
@@ -245,7 +253,18 @@ function App() {
               {[...records].sort((a,b) => new Date(b.date) - new Date(a.date)).slice(0, 5).map((r, i) => (
                 <div key={i} className="history-item">
                   <div className="history-date">{r.date}</div>
-                  <div className="history-weight text-gradient">{Number(r.weight).toFixed(1)} kg</div>
+                  <div className="history-weight text-gradient" style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                    {Number(r.weight).toFixed(1)} kg
+                    <button 
+                      onClick={() => handleDelete(r.date)} 
+                      style={{ background: 'transparent', border: 'none', color: 'rgba(239, 68, 68, 0.7)', cursor: 'pointer', display: 'flex', alignItems: 'center', transition: 'color 0.2s' }}
+                      onMouseEnter={(e) => e.currentTarget.style.color = 'var(--accent-red)'}
+                      onMouseLeave={(e) => e.currentTarget.style.color = 'rgba(239, 68, 68, 0.7)'}
+                      title="この記録を削除"
+                    >
+                      <Trash2 size={16} />
+                    </button>
+                  </div>
                 </div>
               ))}
             </div>
