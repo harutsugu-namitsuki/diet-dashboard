@@ -62,14 +62,161 @@ h1, h2, h3, h4 {
   background-clip: text;
 }
 
-/* Layout */
+/* Layout - Mobile First App Style */
 .app-container {
-  max-width: 1200px;
+  max-width: 480px;
   margin: 0 auto;
-  padding: 32px 16px;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
-  gap: 32px;
+  background-color: var(--bg-color);
+  position: relative;
+  overflow-x: hidden;
+  box-shadow: 0 0 40px rgba(0,0,0,0.5);
+  padding-bottom: 80px; /* Space for bottom nav */
+}
+
+/* Scrollable Content Area */
+.content-area {
+  flex: 1;
+  padding: 24px 16px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Bottom Navigation */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 480px;
+  height: 70px;
+  background: rgba(15, 23, 42, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-top: 1px solid var(--panel-border);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  z-index: 1000;
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  color: var(--text-muted);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 0.75rem;
+  font-weight: 500;
+  flex: 1;
+  transition: all 0.2s;
+}
+
+.nav-item.active {
+  color: var(--accent-blue);
+}
+
+.nav-item.active svg {
+  stroke: var(--accent-blue);
+  fill: rgba(59, 130, 246, 0.2);
+}
+
+/* Meal Recording specific styles */
+.meal-card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background: rgba(15, 23, 42, 0.4);
+  border: 1px solid rgba(255,255,255,0.05);
+  border-radius: 12px;
+  padding: 16px;
+}
+
+.meal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+.meal-input-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.meal-input-row input {
+  flex: 1;
+  text-align: right;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.meal-input-row span {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+.quick-btn {
+  background: rgba(59, 130, 246, 0.1);
+  color: var(--accent-blue);
+  border: 1px solid rgba(59, 130, 246, 0.3);
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.quick-btn:hover, .quick-btn:active {
+  background: rgba(59, 130, 246, 0.2);
+}
+
+.quick-btn.recommended {
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(6, 182, 212, 0.2));
+  color: var(--accent-green);
+  border-color: rgba(16, 185, 129, 0.4);
+}
+
+.balance-ring-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 0;
+  position: relative;
+}
+
+.balance-text {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.balance-text .value {
+  font-size: 2rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.balance-text .label {
+  font-size: 0.8rem;
+  color: var(--text-muted);
 }
 
 .header {
