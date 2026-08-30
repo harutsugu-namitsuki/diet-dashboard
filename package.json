@@ -6,6 +6,9 @@
     "web_app",
     "android_app"
   ],
+  "scripts": {
+    "build": "npm run build --workspace web_app"
+  },
   "devDependencies": {
     "buffer": "^6.0.3"
   }
